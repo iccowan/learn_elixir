@@ -1,0 +1,29 @@
+<form action="#" phx-submit="new">
+    <%= text_input :todo, :title, placeholder: "What do you want to do?" %>
+    <%= submit "Add to List", phx_disable_with: "Adding..." %>
+</form>
+
+<hr />
+<table>
+    <thead>
+        <th></th>
+        <th></th>
+        <th><i>Delete</i></th>
+    </thead>
+    <tbody>
+        <%= for todo <- @todos do %>
+            <tr>
+                <td>
+                    <%= checkbox(:todo, :done, phx_click: "toggle_done",
+                    phx_value_id: todo.id, value: todo.done) %>
+                </td>
+                <td>
+                    <%= todo.title %>
+                </td>
+                <td>
+                    <%= radio_button(:todo_delete, :delete, todo.id, phx_click: "delete", phx_value_id: todo.id) %>
+                </td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>

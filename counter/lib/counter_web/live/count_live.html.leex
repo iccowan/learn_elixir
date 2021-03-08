@@ -1,0 +1,11 @@
+<%= @count %>
+
+<form action="#" phx-submit="add">
+    <input type="hidden" name="val" value="<%= @count %>" />
+    <%= submit "+1", phx_disable_with: "+1" %>
+</form>
+
+<form action="#" phx-submit="remove">
+    <input type="hidden" name="val" value="<%= @count %>" />
+    <%= submit "-1", phx_disable_with: "-1" %>
+</form>

@@ -1,0 +1,10 @@
+<form action="#" class="inline" phx-submit="calculate">
+    <%= text_input :gal, :gallons, placeholder: Integer.to_string(@gal) <> " (Gallons)"%>
+    /
+    <%= text_input :hours, :hours_total, placeholder: Integer.to_string(@hours) <> " (Hours)" %>
+    =
+    <%= @gph %>
+
+    <br /><br />
+    <%= submit "Calculate", phx_disable_with: "Calculating..." %>
+</form>
