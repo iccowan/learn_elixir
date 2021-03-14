@@ -7,8 +7,8 @@ defmodule TextClient.Player do
     exit_with_message("Congrats, you won the game!")
   end
 
-  def play(%State{game_service: %{game_state: :lost}}) do
-    exit_with_message("Sorry, you lost the game...")
+  def play(%State{game_service: game = %{game_state: :lost}}) do
+    exit_with_message("Sorry, you lost the game...\nThe correct word was: " <> concat_word(game.letters))
   end
 
   def play(game = %State{game_service: %{game_state: :good_guess}}) do
@@ -36,11 +36,10 @@ defmodule TextClient.Player do
   end
 
   defp continue(game) do
-    {game, guess} = game
+    game
     |> Display.display()
     |> Prompt.prompt()
-
-    MakeMove.make_move(game, guess)
+    |> MakeMove.make_move()
     |> play()
   end
 
@@ -52,6 +51,15 @@ defmodule TextClient.Player do
   defp continue_with_message(game, msg) do
     IO.puts msg
     continue(game)
+  end
+
+  defp concat_word([], word), do: word
+  defp concat_word([ word_list_h | word_list_t ], word) do
+    word <> word_list_h <> concat_word(word_list_t, word)
+  end
+
+  defp concat_word(word_list) do
+    concat_word(word_list, "")
   end
 
 end
