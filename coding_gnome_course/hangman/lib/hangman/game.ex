@@ -7,7 +7,7 @@ defmodule Hangman.Game do
     used: MapSet.new(),
   ]
 
-  def new_game(word \\ Dictionary.random_word) do
+  def new_game(word \\ random_word()) do
     %Hangman.Game{
       letters: word |> String.codepoints
     }
@@ -29,6 +29,11 @@ defmodule Hangman.Game do
   end
 
 ################################################################################
+
+  defp random_word() do
+    Dictionary.start()
+    |> Dictionary.random_word()
+  end
 
   defp valid_move?(letter) do
     letter
