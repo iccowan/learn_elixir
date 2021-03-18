@@ -42,7 +42,10 @@ defmodule Fib do
       end
     )
 
-    fib(2, n, 2 < n, pid)
+    val = fib(2, n, 2 < n, pid)
+
+    Agent.stop(pid)
+    val
   end
 
 end
