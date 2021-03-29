@@ -8,7 +8,7 @@ defmodule TextClient.MakeMove do
     |> String.trim()
 
     Hangman.make_move(game, guess)
-    |> Interact.setup_state()
+    Interact.setup_state(game)
   end
 
 end

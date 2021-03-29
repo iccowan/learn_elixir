@@ -9,15 +9,20 @@ defmodule Hangman.Game do
 
   def new_game(word \\ random_word()) do
     %Hangman.Game{
-      letters: word |> String.codepoints
+      letters: word
+               |> String.codepoints
     }
   end
 
   def make_move(game = %{game_state: state}, _guess) when state in
-  [:won, :lost], do: game
+  [:won, :lost] do
+    game
+    |> return_with_tally()
+  end
 
   def make_move(game, guess) do
     accept_move(game, guess, MapSet.member?(game.used, guess), valid_move?(guess))
+    |> return_with_tally()
   end
 
   def tally(game) do
@@ -31,8 +36,7 @@ defmodule Hangman.Game do
 ################################################################################
 
   defp random_word() do
-    Dictionary.start()
-    |> Dictionary.random_word()
+    Dictionary.random_word()
   end
 
   defp valid_move?(letter) do
@@ -82,5 +86,7 @@ defmodule Hangman.Game do
 
   defp reveal_letter(letter, _in_word = true), do: letter
   defp reveal_letter(_letter, _not_in_word), do: " _ "
+
+  defp return_with_tally(game), do: { game, tally(game) }
 
 end

@@ -11,7 +11,7 @@ defmodule TextClient.Interact do
     play(state)
   end
 
-  def setup_state({game, tally}) do
+  def setup_state({ game, tally }) do
     %State{
       game_service: game,
       tally: tally
@@ -19,6 +19,7 @@ defmodule TextClient.Interact do
   end
 
   def setup_state(game) do
+    IO.inspect game
     setup_state({ game, Hangman.tally(game) })
   end
 
