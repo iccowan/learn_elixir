@@ -8,7 +8,8 @@ defmodule TextClient.Player do
   end
 
   def play(%State{game_service: game, tally: %{game_state: :lost}}) do
-    exit_with_message("Sorry, you lost the game...\nThe correct word was: " <> Hangman.word(game))
+    exit_with_message("Sorry, you lost the game...\nThe correct word was: "
+      <> Hangman.word(game))
   end
 
   def play(game = %State{tally: %{game_state: :good_guess}}) do

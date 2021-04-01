@@ -10,7 +10,7 @@ defmodule Hangman.Application do
   end
 
   def start_link(arg), do:
-    DynamicSupervisor.start_link(__MODULE__, arg, name: __MODULE__)
+    DynamicSupervisor.start_link(__MODULE__, arg, name: Hangman.Supervisor)
 
   def init(_arg), do: DynamicSupervisor.init(strategy: :one_for_one)
 
@@ -20,7 +20,7 @@ defmodule Hangman.Application do
   end
 
   def start_child(),
-    do: DynamicSupervisor.start_child(__MODULE__, { Hangman.Server, nil})
+    do: DynamicSupervisor.start_child(Hangman.Supervisor, { Hangman.Server, nil})
 
   def handle_call({ :tally }, game), do: Hangman.tally(game)
 
