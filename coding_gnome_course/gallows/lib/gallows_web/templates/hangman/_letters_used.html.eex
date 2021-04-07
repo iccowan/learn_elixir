@@ -1,0 +1,6 @@
+<p>Letters Used:</p>
+<p>
+    <%= for letter <- @used do %>
+        <%= letter %>,
+    <% end %>
+</p>
